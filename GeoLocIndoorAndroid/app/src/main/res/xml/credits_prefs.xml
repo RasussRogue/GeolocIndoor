@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/credits_key_version"
+        android:title="@string/credits_title_version"/>
+
+    <Preference
+        android:key="@string/credits_key_developped_by"
+        android:title="@string/credits_title_developped_by"
+        android:summary="@string/credits_summary_developped_by" />
+
+</PreferenceScreen>

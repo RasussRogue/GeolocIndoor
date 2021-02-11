@@ -1,0 +1,13 @@
+{
+  "/api/*": {
+    "target": "https://localhost:8976/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": "true",
+    "pathRewrite": {
+      "^/api": "/"
+    },
+    "useless": "https://geolocindoor.guilhemallaman.net:8080/"
+
+  }
+}

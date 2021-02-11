@@ -1,0 +1,85 @@
+<h3 mat-subheader>POI's management</h3>
+<div class="h60vh">
+    <gi-map (clickOnMap)="selectLocation($event)" [floor]="this.newPOI.floor" [(pickable)]="pickable"
+            (clickedPOI)="addClickedPOI($event)"></gi-map>
+</div>
+<div fxLayout="row" class="padding-15">
+    <div fxFlex="60" class="padding-right-15">
+        <mat-form-field class="w100">
+            <mat-label>POI name</mat-label>
+            <input matInput placeholder="Enter your POI name" [(ngModel)]="this.newPOI.title">
+        </mat-form-field>
+    </div>
+    <div fxFlex="20" class="padding-right-15">
+        <mat-form-field class="w100">
+            <mat-label>Type</mat-label>
+            <mat-select [(ngModel)]="this.newPOI.type" name="type">
+                <mat-option *ngFor="let type of this.types" [value]="type">
+                    {{ type | uppercase }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div fxFlex="20">
+        <mat-form-field class="w100">
+            <mat-label>Floor</mat-label>
+            <mat-select [(ngModel)]="this.newPOI.floor" name="floor">
+                <mat-option *ngFor="let floor of this.vInputBuilding.floors" [value]="floor">
+                    {{ floor.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div fxLayout="row" class="padding-left-15 padding-right-15">
+    <div fxFlex="80" style="vertical-align: center">
+        <mat-form-field class="padding-right-15">
+            <mat-label>Latitude</mat-label>
+            <input matInput placeholder="Enter your latitude" [(ngModel)]="this.latitude"
+                   (ngModelChange)="refreshWKT()">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Longitude</mat-label>
+            <input matInput placeholder="Enter your longitude" [(ngModel)]="this.longitude"
+                   (ngModelChange)="refreshWKT()">
+        </mat-form-field>
+        <button mat-mini-fab color="primary" (click)="setPickable()" *ngIf="!pickable">
+            <mat-icon>location_on</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="setPickable()" *ngIf="pickable">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </div>
+    <div fxFlex="20" style="display: flex; justify-content: flex-end">
+        <button mat-mini-fab color="warn" matTooltip="Clear the fields" type="reset" class="align-self-center"
+                (click)="clear()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+        <button mat-mini-fab class="margin-left-15 align-self-center" color="primary">
+            <mat-icon (click)="create()">save</mat-icon>
+        </button>
+    </div>
+</div>
+<div fxLayout="row" class="padding-right-15 padding-left-15" *ngIf="linkedPOI.length > 0">
+    <div fxFlex="100">
+        <div fxLayout="row">
+            <h3 fxFlex="100">Linked POI</h3>
+        </div>
+        <mat-card *ngFor="let poi of linkedPOI" fxLayout="row" class="margin-bottom-15 padding-5">
+            <div fxFlex="100">
+                <div fxFlex="10" class="text-align-center line-height-40">
+                    {{ poi.id }}
+                </div>
+                <div fxFlex="70" class="line-height-40">
+                    <label *ngIf="poi.title">{{ poi.title }}</label>
+                    <label *ngIf="!poi.title">This poi has no title</label>
+                </div>
+                <div fxFlex="20" style="display: flex; justify-content: flex-end">
+                    <button mat-mini-fab color="warn" class="align-self-center">
+                        <mat-icon (click)="remove(poi)">delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

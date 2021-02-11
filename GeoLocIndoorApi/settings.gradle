@@ -1,0 +1,3 @@
+include 'GeoLocIndoorCommon'
+project(':GeoLocIndoorCommon').projectDir = file('../GeoLocIndoorCommon')
+rootProject.name = 'GeoLocIndoorApi'

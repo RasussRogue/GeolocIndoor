@@ -1,0 +1,4 @@
+include ':app'
+include 'GeoLocIndoorCommon'
+project(':GeoLocIndoorCommon').projectDir = file('../GeoLocIndoorCommon')
+rootProject.name='GeoLocIndoorAndroid'

@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">GeolocIndoor</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Geoloc Indoor</string>
+    <string name="nav_header_subtitle">Find your place</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_map">Map</string>
+    <string name="menu_events">Events</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_credits">Credits</string>
+    <string name="search_hint">Looking for an event ?</string>
+
+    <string name="food">Food</string>
+    <string name="admin">Administration</string>
+    <string name="teaching">Teaching</string>
+
+    <string name="radiobutton_place">Place</string>
+    <string name="radiobutton_event">Event</string>
+    <string name="button_go">Go!</string>
+    <string name="adapter_distance_format">%d m</string>
+    <string name="adapter_time_format">Start: %s (%s)</string>
+    <string name="dialog_event_location">Location</string>
+    <string name="dialog_add_event_to_calendar">Add to calendar</string>
+
+    <string name="time_format_minute">%d min</string>
+    <string name="time_format_hours">%d hours</string>
+    <string name="time_format_days">%d days</string>
+
+    <string name="place_not_found">The place has not been found. You can search for a place in the search bar</string>
+    <string name="close_app_warning">Click back button again to close GeolocIndoor app</string>
+    <string name="itinerary_destination_reached">You have reached the destination !</string>
+    <string name="bottom_sheet_button_go_to">Itinerary</string>
+    <string name="bottom_sheet_button_centrate">Center</string>
+    <string name="bottom_sheet_upcoming_events">Upcoming events</string>
+    <string name="bottom_sheet_distance_format">%s, %d meters away</string>
+
+    <string name="init_authorize_location">Geoloc indoor needs to have access to your phone\'s location\nPlease relaunch the app and authorize location</string>
+    <string name="init_activate_location">Geoloc indoor needs to have access to your phone\'s location\nPlease activate location</string>
+    <string name="init_activate_bluetooth">Geoloc indoor needs to have access to your phone\'s Bluetooth\nPlease activate Bluetooth</string>
+    <string name="init_choose_building">Please choose a building from the list</string>
+
+    <string name="nonetwork_button_retry">Retry</string>
+    <string name="nonetwork_toast_message">Error while downloading indoor data\nPlease check your connection and retry</string>
+    <string name="nonetwork_building_in_cache_toast_message">Could not download indoor data, but building \'%s\' was found in cache\nPlease check your connection and retry</string>
+
+    <string name="no_itinerary_found_message">No itinerary could be found</string>
+
+    <string name="mapbox_token">pk.eyJ1IjoiZ3VpbGhlbWFsbGFtYW4iLCJhIjoiY2p5YjdxbGRkMDV2aDNjcGxhYmszMmY2OCJ9.72rbXki0Nw4Nf5GzZVDu4w</string>
+    <string name="kontaktio_api_key">AEKjqlLXgWTbkODJwKnlFFZZKnCdmkkn</string>
+    <string name="geoloc_indoor_api_host">https://geolocindoor.guilhemallaman.net:8080</string>
+
+    <string-array name="sortList">
+        <item>Name</item>
+        <item>Start date</item>
+        <item>Nearby</item>
+    </string-array>
+
+    <string-array name="iconLayers">
+        <item>stairs</item>
+        <item>lift</item>
+        <item>wc</item>
+        <item>food</item>
+    </string-array>
+
+    <string name="prefs_category_network">Network</string>
+
+    <string name="prefs_title_api_host">API Host</string>
+    <string name="prefs_key_api_host">key_api_host</string>
+    <string name="prefs_dialog_title_api_host">Choose API host\nFormat: http[s]://DOMAIN:PORT/</string>
+
+    <string name="prefs_title_daycount">Download events for</string>
+    <string name="prefs_key_daycount">daycount-get-events-api</string>
+    <string name="prefs_summary_daycount">%f days</string>
+    <string name="prefs_defaultvalue_daycount">7</string>
+    <string-array name="prefs_entryvalues_daycount">
+        <item>3</item>
+        <item>7</item>
+        <item>14</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="prefs_entries_daycount">
+        <item>3 days</item>
+        <item>7 days</item>
+        <item>14 days</item>
+        <item>30 days</item>
+    </string-array>
+
+
+    <string name="prefs_category_indoor_data">Indoor data</string>
+
+    <string name="prefs_title_selected_building">Selected building</string>
+    <string name="prefs_dialog_title_selected_building">Please select a building from the list</string>
+    <string name="prefs_key_selected_building">selected-building-id</string>
+    <string name="prefs_defaultvalue_selected_building">-1</string>
+
+    <string name="prefs_title_accessibility">Accessibility for pathfinding</string>
+    <string name="prefs_key_accessibility">accessibility</string>
+    <string name="prefs_option_accessibility_off">Pathfinding will compute routes regardless of accessibility ways</string>
+    <string name="prefs_option_accessibility_on">Pathfinding will compute routes using accessibility ways only</string>
+
+    <string name="prefs_category_positionning">Positionning</string>
+
+    <string name="prefs_title_positioning_mode">Positioning mode</string>
+    <string name="prefs_key_trilat">trilat</string>
+    <string name="prefs_option_trilat">Trilateration</string>
+    <string name="prefs_option_proxi">Proximity</string>
+
+    <string name="prefs_title_display_beacon">Display beacons</string>
+    <string name="prefs_key_beacons">display-beacons</string>
+
+    <string name="credits_key_version">credits_key_version</string>
+    <string name="credits_title_version">Version</string>
+    <string name="credits_key_developped_by">credits_key_developped_by</string>
+    <string name="credits_title_developped_by">Developed by Geoloc Indoor Team\nESIPE Marne-la-Vallée</string>
+    <string name="credits_summary_developped_by">Guilhem Allaman\nAntoine Balabaud\nBenoit Bonavia\nAdrien Felipez\nMehdi Hechadi</string>
+
+</resources>

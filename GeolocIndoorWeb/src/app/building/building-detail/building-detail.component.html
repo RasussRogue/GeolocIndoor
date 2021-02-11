@@ -1,0 +1,4 @@
+<div *ngIf="this.events">
+  <h3>{{ building.name }} events</h3>
+  <gi-event-list [events]="events" [building]="building" (deleted)="delete($event)" (editableButton)="notifyEdition($event)"></gi-event-list>
+</div>

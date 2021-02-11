@@ -1,0 +1,35 @@
+<div class="padding-15">
+    <h3>New Building</h3>
+    <form (ngSubmit)="postFile()">
+        <div fxLayout="row">
+            <div fxFlex="35" class="padding-right-15">
+                <mat-form-field class="w100">
+                    <mat-label>New building name</mat-label>
+                    <input matInput placeholder="Your building name" name="buildingName" [(ngModel)]="inputName">
+                </mat-form-field>
+            </div>
+            <div fxFlex="65">
+                <!--        <label>Select a file to upload</label>-->
+                <input type="file" name="spatialiteFile" #fileInput (change)="onChangeFileInput($event)"
+                       class="display-none"/>
+                <mat-form-field class="full-width-with-mini-fab">
+                    <mat-label>Upload file</mat-label>
+                    <input matInput [value]="this.fileName" (click)="onClickFileInputButton()">
+                </mat-form-field>
+                <button mat-mini-fab color="primary" (click)="onClickFileInputButton()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+                <a mat-mini-fab color="primary" class="margin-left-15" href="assets/empty-building.sqlite">
+                    <mat-icon>cloud_download</mat-icon>
+                </a>
+            </div>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="100">
+                <button type="submit" mat-button color="primary" matTooltip="Save this event"
+                        class="margin-left-15 float-right">Create
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

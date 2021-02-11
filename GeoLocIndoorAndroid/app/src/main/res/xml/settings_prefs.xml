@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_network">
+
+        <EditTextPreference
+            android:key="@string/prefs_key_api_host"
+            android:title="@string/prefs_title_api_host"
+            android:defaultValue="@string/geoloc_indoor_api_host"
+            android:dialogTitle="@string/prefs_dialog_title_api_host"/>
+
+        <ListPreference
+            android:key="@string/prefs_key_daycount"
+            android:title="@string/prefs_title_daycount"
+            android:entries="@array/prefs_entries_daycount"
+            android:entryValues="@array/prefs_entryvalues_daycount"
+            android:defaultValue="@string/prefs_defaultvalue_daycount"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_indoor_data">
+
+        <ListPreference
+            android:key="@string/prefs_key_selected_building"
+            android:title="@string/prefs_title_selected_building"
+            android:dialogTitle="@string/prefs_dialog_title_selected_building"
+            android:defaultValue="@string/prefs_defaultvalue_selected_building"/>
+
+        <SwitchPreference
+            android:key="@string/prefs_key_accessibility"
+            android:title="@string/prefs_title_accessibility"
+            android:summaryOff="@string/prefs_option_accessibility_off"
+            android:summaryOn="@string/prefs_option_accessibility_on"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/prefs_category_positionning">
+
+        <SwitchPreference
+            android:key="@string/prefs_key_trilat"
+            android:title="@string/prefs_title_positioning_mode"
+            android:summary="@string/prefs_option_trilat"
+            android:summaryOff="@string/prefs_option_proxi"
+            android:summaryOn="@string/prefs_option_trilat"
+            android:defaultValue="true"/>
+
+        <SwitchPreference
+            android:key="@string/prefs_key_beacons"
+            android:title="@string/prefs_title_display_beacon"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

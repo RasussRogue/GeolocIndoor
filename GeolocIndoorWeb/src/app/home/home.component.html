@@ -1,0 +1,13 @@
+<div fxLayout="row" class="padding-15">
+  <div fxFlex="50" style="padding: 15px;">
+    <gi-create-building></gi-create-building>
+    <gi-building-list (buildingChange)="setCurrentBuilding($event.building, $event.action)"></gi-building-list>
+  </div>
+  <div fxFlex="50" style="padding: 15px;">
+    <gi-building-detail [inputBuilding]="currentBuilding" *ngIf="currentBuilding && action == 'detail'" (editableButton)="setEditableButton($event)"></gi-building-detail>
+    <gi-create-event [inputBuilding]="currentBuilding" *ngIf="currentBuilding && action == 'create'"></gi-create-event>
+    <gi-edit-event [inputBuilding]="currentBuilding" [(event)]="editableEvent" *ngIf="editableEvent && action == 'edit'"></gi-edit-event>
+    <gi-poi [inputBuilding]="currentBuilding" *ngIf="currentBuilding && action == 'poi'"></gi-poi>
+  </div>
+</div>
+

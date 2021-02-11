@@ -1,0 +1,10 @@
+# Gitlab CI
+/builds
+
+# Intellij Idea
+*.iml
+/.idea
+
+# Gradle
+/.gradle
+/build

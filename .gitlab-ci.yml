@@ -1,0 +1,161 @@
+#Lien : https://medium.com/@NickKaramoff/gitlab-ci-setup-for-an-android-app-3ba57b369b5f
+
+#Variables globales
+variables:
+  APP_VERSION: "4.0"
+  SONAR_URL: "http://sonar.guilhemallaman.net"
+  SONAR_TOKEN: "c81c7b4fcad31198db3899c901a9152cb4858514"
+  JDK_PATH_ANDROID: "/usr/lib/jvm/java-8-openjdk-amd64/"
+
+#Etapes dans notre CI/CD rajout
+stages:
+  #CI
+  - build
+  - test
+  - analyze
+  #CD
+  - deploy
+  - restart
+
+cache:
+  #key: ${CI_PROJECT_ID}
+  #Pour ne pas a reinstaller toutes les dependances a chaque "stage"
+  paths:
+    - .gradle/
+
+  #Docker image pour l'environnement android
+  #image: jangrewe/gitlab-ci-android
+
+build:
+  before_script:
+    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - chmod +x ./gradlew
+  stage: build
+  script:
+    - ./gradlew clean assemble
+
+analyze:android:
+  only:
+    - master
+  before_script:
+    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - cd ./GeoLocIndoorAndroid/
+    - chmod +x ./gradlew
+  stage: analyze
+  script:
+    - ./gradlew sonarqube -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN} -Dorg.gradle.java.home=${JDK_PATH_ANDROID}
+
+test:android:
+  #Ensemble des actions a effectuer avant l'execution des taches
+  before_script:
+    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - cd ./GeoLocIndoorAndroid/
+    - chmod +x ./gradlew
+  #Ensemble des actions a effectuer apres l'execution des taches
+  after_script:
+    - cd ..
+  stage: test
+  script:
+    - ./gradlew test -Dorg.gradle.java.home=${JDK_PATH_ANDROID}
+
+    #test:androidConnected:
+    #before_script:
+    #- export GRADLE_USER_HOME=$(pwd)/.gradle
+    #- cd ./GeoLocIndoorAndroid/
+    #- chmod +x ./gradlew
+    #after_script:
+    #- cd ..
+    #stage: test
+    #script:
+    #- ./gradlew connectedAndroidTest -i
+
+deploy:android:
+  only:
+    - master
+  #Ensemble des actions a effectuer avant l'execution des taches
+  before_script:
+    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - cd ./GeoLocIndoorAndroid/
+    - chmod +x ./gradlew
+  #Ensemble des actions a effectuer apres l'execution des taches
+  after_script:
+    - cd ..
+  stage: deploy
+  script:
+    - ./gradlew assembleDebug -Dorg.gradle.java.home=${JDK_PATH_ANDROID}
+    - cp ./app/build/outputs/apk/debug/app-debug.apk /data/android-app/GeoLocIndoorAndroid-${APP_VERSION}.apk
+    - cp ./app/build/outputs/apk/debug/app-debug.apk /var/www/html/last.apk
+  dependencies:
+    - test:android
+
+#################################################################################################################
+#################################################################################################################
+
+#Springboot
+test:api:
+  #Ensemble des actions a effectuer avant l'execution des taches
+  before_script:
+    - cd ./GeoLocIndoorApi/
+    - chmod +x ./gradlew
+  #Ensemble des actions a effectuer apres l'execution des taches
+  after_script:
+    - cd ..
+  stage: test
+  script:
+    - ./gradlew test
+
+analyze:api:
+  only:
+    - master
+  before_script:
+    #- cd ./GeoLocIndoorApi/
+    - chmod +x ./gradlew
+  stage: analyze
+  script:
+    - ./gradlew sonarqube -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_TOKEN}
+
+
+deploy:api:
+  only:
+    - master
+  #Ensemble des actions a effectuer avant l'execution des taches
+  before_script:
+    - cd ./GeoLocIndoorApi/
+    - chmod +x ./gradlew
+  #Ensemble des actions a effectuer apres l'execution des taches
+  after_script:
+    - cd ..
+  stage: deploy
+  script:
+    - rm -rf ./src/main/resources/static/
+    - cd ../GeolocIndoorWeb/
+    - npm install
+    - npm run build
+    - ls -l ./dist/
+    - cp -r ./dist/GeolocIndoorWeb/ ../GeoLocIndoorApi/src/main/resources/static/
+    - cd ../GeoLocIndoorApi/
+    - ./gradlew bootJar
+    - ls -l ./build/libs/
+    - cp ./build/libs/GeoLocIndoorApi.jar /data/spring-app/GeoLocIndoorApi-${APP_VERSION}.jar
+    - cp ./build/libs/GeoLocIndoorApi.jar /data/spring-app/GeoLocIndoorApi-LAST.jar
+  dependencies:
+    - test:api
+
+restart:api:
+  tags:
+    - restart
+  only:
+    - master
+  #Ensemble des actions a effectuer avant l'execution des taches
+  before_script:
+    - cd /data/spring-app/
+  #Ensemble des actions a effectuer apres l'execution des taches
+  after_script:
+    - cd ..
+  stage: restart
+  script:
+    #VPS Adrien
+    - sudo systemctl stop GeoLocIndoorApi.service
+    - sudo systemctl start GeoLocIndoorApi.service
+  dependencies:
+    - deploy:api

@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Wanna suppress "{{ event.title }}"</h1>
+<div mat-dialog-content>
+  <div fxLayout="row">
+    <div fxFlex="50">
+      <h3>Début</h3>
+      {{ event.start | date : 'dd/MM' }} - {{ event.start | date : 'HH:mm' }}
+    </div>
+    <div fxFlex="50">
+      <h3>Fin</h3>
+      {{ event.end | date : 'dd/MM' }} - {{ event.end | date : 'HH:mm' }}
+    </div>
+  </div>
+  <h3>Description</h3>
+  {{ event.description }}
+  <h3>Location</h3>
+  {{ event.location.title }}
+</div>
+<div mat-dialog-actions>
+  <div fxLayout="row" class="w100">
+    <div fxFlex="100">
+      <button mat-button color="warn" class="float-right" (click)="this.deleteEvent()">Yes</button>
+      <button mat-button color="primary" cdkfocusinitial (click)="this.dialogRef.close(false);" class="float-right">No</button>
+    </div>
+  </div>
+</div>

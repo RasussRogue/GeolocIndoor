@@ -1,0 +1,60 @@
+#docker-compose up --build
+version: '3.7'
+
+# Define services
+services:
+
+  # Database Service (PostgresSQL)
+  db:
+    build:
+      context: .
+      dockerfile: ./ci-cd/docker/db/Dockerfile
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  # Api
+  api:
+    build:
+      context: .
+      dockerfile: ./ci-cd/docker/api/Dockerfile
+    links:
+      - db:db
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+
+  # pgAdmin4
+  pgAdmin:
+    restart: always
+    image: dpage/pgadmin4
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    links:
+      - db:db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@arxit.com
+      PGADMIN_DEFAULT_PASSWORD: root
+
+  # Angular
+  angular:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./ci-cd/docker/web/Dockerfile
+    ports:
+      - 4200:4200
+    depends_on:
+      - api

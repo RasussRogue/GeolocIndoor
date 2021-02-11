@@ -1,0 +1,30 @@
+server:
+  port: 8976
+  api:
+    path: /api
+  ssl:
+    key-store: /etc/letsencrypt/live/geolocindoor.guilhemallaman.net/keystore.p12
+#    key-store: C:\Users\benoi\Downloads\keystore.p12
+    key-store-type: PKCS12
+    key-alias: tomcat
+    key-store-password: geolocindoor666
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://geolocindoor.guilhemallaman.net:5432/geoloc_indoor
+    username: postgres
+    password: geolocindoor666

@@ -1,0 +1,37 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: "org.sonarqube"
+
+buildscript {
+
+    ext{
+        android_plugin_version = "3.5.3"
+        junit_platform_version = "5.5.2"
+        junit_jupiter_version = "5.5.2"
+
+    }
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        //On compile d'abord les classes communes
+        //compile project(':GeoLocIndoorCommon')
+        classpath "com.android.tools.build:gradle:$android_plugin_version"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.5.2.0"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.8"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

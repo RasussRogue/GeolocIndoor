@@ -1,0 +1,12 @@
+<mat-list>
+  <h3 mat-subheader>Buildings</h3>
+  <mat-list-item *ngFor="let building of buildings">
+    <mat-icon mat-list-icon>domain</mat-icon>
+    <h4 mat-line>{{building.id}} - {{building.name}}</h4>
+    <button mat-mini-fab color="primary" (click)="selectBuilding(building, 'poi')" matTooltip="Add POI to building"><mat-icon>location_on</mat-icon></button>
+    <button mat-mini-fab color="primary" (click)="selectBuilding(building, 'create')" matTooltip="Add event to building" class="margin-left-15"><mat-icon>calendar_today</mat-icon></button>
+    <button mat-mini-fab color="primary" (click)="selectBuilding(building, 'detail')" matTooltip="See details" class="margin-left-15"><mat-icon>list</mat-icon></button>
+    <button mat-mini-fab color="warn"  (click)="deleteBuilding()" class="margin-left-15"><mat-icon>delete</mat-icon></button>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>

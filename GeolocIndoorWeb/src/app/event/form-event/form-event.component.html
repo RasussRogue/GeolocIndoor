@@ -1,0 +1,66 @@
+<mat-card>
+  <form class="example-form" (ngSubmit)="saveEvent()">
+    <mat-form-field class="w100">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Your event title ..." [(ngModel)]="event.title" name="title">
+    </mat-form-field>
+
+    <mat-form-field class="w100">
+      <mat-label>Description</mat-label>
+      <textarea matInput cdkTextareaAutosize placeholder="Your event description ..." [(ngModel)]="event.description" name="description"></textarea>
+    </mat-form-field>
+
+    <div fxLayout="row">
+      <div fxFlex="25" class="padding-right-15">
+        <mat-form-field class="w100">
+          <mat-label>Starting date</mat-label>
+          <input matInput [matDatepicker]="pickerStart" #startDateInput name="dateStart" (dateChange)="setDate('start', $event)" [formControl]="dateStart">
+          <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+          <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25" class="padding-right-15">
+        <mat-form-field class="w100">
+          <input matInput type="time" #startTimeInput (change)="setTime('start', startTimeInput.valueAsDate)">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25" class="padding-right-15">
+        <mat-form-field class="w100">
+          <mat-label>Ending date</mat-label>
+          <input matInput [matDatepicker]="pickerEnd" #endDateInput name="dateEnd" (dateChange)="setDate('end', $event)" [formControl]="dateEnd">
+          <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+          <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25" class="padding-right-15">
+        <mat-form-field class="w100">
+          <input matInput type="time" #endTimeInput (change)="setTime('end', endTimeInput.valueAsDate)">
+        </mat-form-field>
+      </div>
+    </div>
+
+
+    <mat-form-field class="w100">
+      <input type="text"
+             placeholder="Location"
+             aria-label="Number"
+             matInput
+             [formControl]="poiControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredPOIs | async" [value]="option" (onSelectionChange)="setLocation($event)">
+          {{option.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div fxLayout="row">
+      <div fxFlex="100">
+        <button type="submit" mat-mini-fab color="primary" matTooltip="Save this event" class="margin-left-15 float-right"><mat-icon>save</mat-icon></button>
+        <button (click)="clearFieldsWithNotification()" mat-mini-fab color="warn" matTooltip="Clear the fields" type="reset" class="float-right"><mat-icon>cancel</mat-icon></button>
+      </div>
+    </div>
+  </form>
+</mat-card>

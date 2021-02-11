@@ -1,0 +1,10 @@
+com.arxit.geolocindoor.common.entities
+com.arxit.geolocindoor.common.utils
+com.example.geolocindoor
+com.example.geolocindoor.exception
+com.example.geolocindoor.itinerary
+com.example.geolocindoor.location
+com.example.geolocindoor.managers
+com.example.geolocindoor.trilateration
+com.example.geolocindoor.ui
+com.example.geolocindoor.utils
